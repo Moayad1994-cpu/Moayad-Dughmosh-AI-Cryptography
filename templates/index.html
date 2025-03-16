@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moayad Dughmosh AI Cryptography</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Moayad Dughmosh AI Cryptography</h1>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Cryptography Tool</h2>
+            <div class="section">
+                <h3>Encrypt Text</h3>
+                <form id="encrypt-form" method="POST">
+                    <textarea id="text_to_encrypt" name="text_to_encrypt" rows="4" placeholder="Enter text to encrypt"></textarea><br>
+                    <button type="button" onclick="copyToEncrypt()">Copy to Encrypt</button>
+                    <button type="submit" name="encrypt">Encrypt</button>
+                </form>
+                <div id="encrypted_box" class="result-box">
+                    <p>Encrypted Text: <span id="encrypted_text" contenteditable="true">{{ encrypted_text }}</span></p>
+                </div>
+            </div>
+            <div class="section">
+                <h3>Decrypt Text</h3>
+                <form id="decrypt-form" method="POST">
+                    <textarea id="text_to_decrypt" name="text_to_decrypt" rows="4" placeholder="Enter text to decrypt"></textarea><br>
+                    <button type="button" onclick="pasteToDecrypt()">Paste to Decrypt</button>
+                    <button type="submit" name="decrypt">Decrypt</button>
+                </form>
+                <p>Decrypted Text: {{ decrypted_text }}</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Developed by Moayad Dughmosh 2025</p>
+    </footer>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #007BFF, #6c757d, #ffffff);
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+
+header, footer {
+    background-color: #4A148C;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+textarea {
+    width: 95%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 80px;
+    max-height: 150px;
+}
+
+button {
+    background-color: #4A148C;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+
+button:hover {
+    background-color: #311B92;
+}
+
+.result-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.dark-mode {
+    background: #333;
+    color: #0c484f;
+}
+
+.dark-mode header, .dark-mode footer {
+    background-color: #444;
+}
+
+.dark-mode button {
+    background-color: #555;
+    color: #f0f0f0;
+}
+
+.dark-mode button:hover {
+    background-color: #666;
+}
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const button = document.createElement('button');
+    button.textContent = 'Toggle Dark Mode';
+    button.style.position = 'fixed';
+    button.style.top = '10px';
+    button.style.right = '10px';
+    button.style.padding = '10px';
+    button.style.backgroundColor = '#4A148C';
+    button.style.color = 'white';
+    button.style.border = 'none';
+    button.style.borderRadius = '4px';
+    button.style.cursor = 'pointer';
+    button.style.zIndex = '1000';
+
+    button.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+    });
+
+    body.appendChild(button);
+});
+
+function copyToEncrypt() {
+    const textToEncrypt = document.getElementById('text_to_encrypt');
+    textToEncrypt.select();
+    textToEncrypt.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand('copy');
+    alert('Text copied to clipboard!');
+}
+
+function pasteToDecrypt() {
+    const textToDecrypt = document.getElementById('text_to_decrypt');
+    textToDecrypt.focus();
+    document.execCommand('paste');
+
+    // Automatically fill the decryption box with the encrypted text
+    const encryptedText = document.getElementById('encrypted_text').innerText;
+    textToDecrypt.value = encryptedText;
+}
+
+    </script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
